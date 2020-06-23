@@ -34,6 +34,19 @@ def random_forest_predictions(test_df, forest):
         df_predictions[column_name] = predictions
 
     df_predictions = pd.DataFrame(df_predictions)
+    random_forest_prediction = df_predictions.mean(axis=1)
+
+    return random_forest_prediction
+
+
+def random_forest_classification(test_df, forest):
+    df_predictions = {}
+    for i in range(len(forest)):
+        column_name = "tree_{}".format(i)
+        predictions = make_predictions(test_df, tree=forest[i])
+        df_predictions[column_name] = predictions
+
+    df_predictions = pd.DataFrame(df_predictions)
     random_forest_prediction = df_predictions.mode(axis=1)[0]
 
     return random_forest_prediction
